@@ -5,14 +5,18 @@ import {Button, Container, ImgLogo} from './style';
 
 import logo from '../../assets/images/icon.png';
 
-export default function Header(){
+interface HeaderProps {
+  handleToggleList: () => void;
+}
+
+export default function Header({handleToggleList} : HeaderProps){
   return(
     <Container>
       <ImgLogo
         source={logo} 
       />
 
-      <Button onPress={() => {}}> 
+      <Button onPress={() => handleToggleList()}> 
         <Feather name="list" size={24} color="white" />
       </Button>
     </Container>
