@@ -5,12 +5,14 @@ import {ButtonAction, ButtonContainer, Container} from './style';
 import { useAudio } from "../../hooks/audio";
 
 export default function AudioPLayer(){
-  const {isPlaying, handleToggleAudio} = useAudio();
+  const {isPlaying, handleToggleAudio, handleNextAudio, handlePreviousAudio} = useAudio();
 
   return(
     <Container>
       <ButtonContainer>
-        <ButtonAction>
+        <ButtonAction
+          onPress={handlePreviousAudio}
+        >
           <Feather name="chevron-left" size={24} color="white" />
         </ButtonAction>
         
@@ -21,7 +23,9 @@ export default function AudioPLayer(){
           <Feather name={isPlaying ? "pause" : "play"} size={32} color="white" />
         </ButtonAction> 
 
-        <ButtonAction>
+        <ButtonAction
+          onPress={handleNextAudio}
+        >
           <Feather name="chevron-right" size={24} color="white" />
         </ButtonAction>
       </ButtonContainer>

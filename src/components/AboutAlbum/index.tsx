@@ -8,7 +8,7 @@ export default function AboutAlbum(){
 
   return(
     <Container>
-      <Title>{currentAudioInfo?.title || "Selecione um audio"}</Title>
+      <Title>{currentAudioInfo ? currentAudioInfo.id +" - "+ currentAudioInfo.title : "Selecione um audio"}</Title>
       <Album 
         source={{uri: currentAudioInfo?.imageSource}} 
         resizeMode="contain"

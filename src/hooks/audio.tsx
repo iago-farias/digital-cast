@@ -11,6 +11,8 @@ interface AudioContextData {
   playlist: AudioData[];
   playSong: (source : AudioData, autoPlay : boolean) => void;
   handleToggleAudio: () => void;
+  handleNextAudio: () => void;
+  handlePreviousAudio: () => void;
 }
 
 interface AudioProviderProps {
@@ -45,6 +47,7 @@ export function AudioProvider({children} : AudioProviderProps)  {
 
   async function playSong(source : AudioData, autoPlay = false){
     if(currentAudio){
+      setIsPlaying(false);
       await currentAudio.unloadAsync();
     }
 
@@ -76,6 +79,42 @@ export function AudioProvider({children} : AudioProviderProps)  {
     setIsPlaying((old) => !old);
   }
 
+  async function handleNextAudio(){
+    if(!currentAudioInfo){
+      return;
+    }
+
+    playlist.map(async (playlistAudio, index) => {
+      if(playlistAudio.id === currentAudioInfo.id){
+        const nextAudioIndex = index + 1;
+        
+        if(nextAudioIndex > playlist.length - 1){
+          return;
+        }
+
+        await playSong(playlist[nextAudioIndex], true);
+      }
+    });
+  }
+
+  async function handlePreviousAudio(){
+    if(!currentAudioInfo){
+      return;
+    }
+
+    playlist.map(async (playlistAudio, index) => {
+      if(playlistAudio.id === currentAudioInfo.id){
+        const previousAudioIndex = index - 1;
+
+        if(previousAudioIndex < 0){
+          return;
+        }
+
+        await playSong(playlist[previousAudioIndex], true);
+      }
+    });   
+  }
+
   return(
     <AudioContext.Provider
       value={{
@@ -84,10 +123,12 @@ export function AudioProvider({children} : AudioProviderProps)  {
         isPlaying,
         playlist,
         playSong,
-        handleToggleAudio
+        handleToggleAudio,
+        handleNextAudio,
+        handlePreviousAudio
       }}
     >
-    {children}
+      {children}
     </AudioContext.Provider>
   );
 }
