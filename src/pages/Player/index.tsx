@@ -1,5 +1,5 @@
 import React, {createRef} from "react"
-import {ScrollView, Text, Dimensions} from 'react-native';
+import {ScrollView, Dimensions} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ActionSheet from 'react-native-actions-sheet';
 
