@@ -16,6 +16,7 @@ export const Title = styled.Text`
   font-weight: 700;
   text-align: center;
   margin-bottom: 20px;
+  padding: 0 14px
 `
 
 export const Album = styled.Image`

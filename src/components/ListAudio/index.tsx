@@ -1,5 +1,5 @@
 import React from "react";
-import {FlatList, ScrollView} from 'react-native';
+import {FlatList, ScrollView, TouchableOpacity} from 'react-native';
 import { useAudio } from "../../hooks/audio";
 import { AudioData } from "../../types/Audio";
 
@@ -10,17 +10,19 @@ interface RenderItemProps{
 }
 
 export default function ListAudio(){
-  const {playlist} = useAudio();
+  const {playlist, playSong} = useAudio();
 
   const RenderItem = ({ item } : RenderItemProps) => {
     return(
-      <ItemContainer>
-        <AlbumImage source={{uri: "https://i.ibb.co/FYjqrST/cover.png"}}/>
-        <ItemInfoContainer>
-          <ItemInfoTitle>{item.title}</ItemInfoTitle>
-          <ItemInfoData>{item.date}</ItemInfoData>
-        </ItemInfoContainer>
-      </ItemContainer>
+      <TouchableOpacity onPress={() => playSong(item, true)}>
+        <ItemContainer>
+          <AlbumImage source={{uri: "https://i.ibb.co/FYjqrST/cover.png"}}/>
+          <ItemInfoContainer>
+            <ItemInfoTitle>{item.title}</ItemInfoTitle>
+            <ItemInfoData>{item.date}</ItemInfoData>
+          </ItemInfoContainer>
+        </ItemContainer>
+      </TouchableOpacity>
     );
   }
 
